@@ -20,8 +20,9 @@
 \backcite {dwc-archive}{{3}{3.3}{subsection.3.3}}
 \backcite {gnresolver}{{4}{3.4}{subsection.3.4}}
 \backcite {resolver:gn, gnrd}{{4}{3.4}{subsection.3.4}}
-\backcite {Pyle2016}{{5}{3.4}{Item.9}}
-\backcite {Patterson:inpress-a}{{5}{3.4}{Item.9}}
+\backcite {Pyle2016}{{4}{{{\textbf {Step 7}}}}{Item.9}}
+\backcite {Pyle2016}{{5}{3.4}{Item.10}}
+\backcite {Patterson:inpress-a}{{5}{3.4}{Item.10}}
 \backcite {gnrd}{{5}{3.5}{subsection.3.5}}
 \backcite {Akella2012}{{5}{3.5}{subsection.3.5}}
 \backcite {gnparser}{{5}{3.5}{subsection.3.5}}

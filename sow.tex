@@ -244,6 +244,11 @@ to implement the following workflow for \textit{GNResolver}:
   \item For name-strings of species which did not match step \ref{exact} or
     \ref{fuzzy} we perform partial exact match at the genus level.
 
+  \item We find name-strings which have matching records in \textit{GNUB}
+    \cite{Pyle2016} and query Usage Bank API for nomenclatural information. As
+    a result user has a detailed nomenclatural history and connections to
+    literature for such name-strings.
+
   \item We analyze parsed information from user-supplied name strings, and
     matches found in GN database and calculate confidence score
     based on the following criteria:
