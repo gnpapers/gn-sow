@@ -1,0 +1,349 @@
+% this TeX file provides an awesome example of how TeX will make super
+% awesome tables, at the cost of your of what happens when you try to make a
+% table that is very complicated.
+% Originally turned in for Dr. Nico's Security Class
+\documentclass[11pt]{article}
+
+
+% Use wide margins, but not quite so wide as fullpage.sty
+\marginparwidth 0.5in
+\oddsidemargin 0.25in
+\evensidemargin 0.25in
+\marginparsep 0.25in
+\topmargin 0.25in
+\textwidth 6in \textheight 8 in
+% That's about enough definitions
+
+% multirow allows you to combine rows in columns
+\usepackage{multirow}
+% tabularx allows manual tweaking of column width
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\begin{document}
+% this is an alternate method of creating a title
+%\hfill\vbox{\hbox{Gius, Mark}
+%       \hbox{Cpe 456, Section 01}
+%       \hbox{Lab 1}
+%       \hbox{\today}}\par
+%
+%\bigskip
+%\centerline{\Large\bf Lab 1: Security Audit}\par
+%\bigskip
+\author{NSF project \#1356347 }
+\title{Scope of Work for ``ABI Development: Global Names Discovery, Indexing and Reconciliation Services''}
+\maketitle
+
+\section{Overview}
+
+Scientific names are ubiquitous in biology. They interconnect distributed
+biological and medical information. Scientific names create a common
+international language for researches. However there are several obstacles in
+using names as a glue metadata in science. It is hard to extract them from
+literature. There are often alternative spellings, so the same name is
+expressed by several name-strings; some species have many names, or one name
+might point to different species.
+
+Our goal for this round of NSF funding is to create accurate, fast and scalable
+``production-ready'' tools for finding and disambiguating scientific names. The
+work is spread between two projects:
+
+\begin{enumerate}
+
+  \item \textit{Global Names Resolver (GNResolver)} for name disambiguation
+    (grouping name-strings into lexical groups and then combining lexical
+    groups referred to the same species)
+
+  \item \textit{Global Names Finder (GNFinder)} for extracting names from
+    texts, PDF documents and images.
+
+\end{enumerate}
+
+We plan for these tools to reach throughputs which will be sufficient to
+globally satisfy needs of scientific and medical communities in indexing,
+interconnecting biological data using scientific names, working with species'
+checklists, maintaining museum collections etc.  We design our tools to be
+scalable, so if there is a need to increase performance, adding more hardware
+will be enough to cover demands in the future.
+
+To provide better longevity to Global Names Architecture projects we decided to
+move operations from Marine Biological Laboratory to University of Illinois.
+This document describes the scope of work we are planning to achieve when the
+funds will be transfered to the new location (Table~\ref{table:funds}).
+
+\begin{table}[!htb]
+  \begin{center}
+    \caption{Amount of transferred funds}
+    \label{table:funds}
+    \vspace{0.4cm}
+    \begin{tabular}{| l | r |}
+      \hline
+      Year 1 & \$47,220 \\
+      \hline
+      Year 2 & \$374,895 \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Tools we are developing are long-term, they are not going to disappear. We
+provide human and hardware resources which will guarantee existence of the
+Global Names tools in the foreseeable future. We use Open Source best practices
+for programming, with all development process available for download and review
+on day by day basis. We choose micro-services approach instead of a 'monolith'
+service.  It allows us to make functional elements of our tools independent of
+each other, so they can be used separately from the main product, and as such
+increase usability of our efforts. Libraries developed so far gained
+significant popularity already, and had been downloaded by bio-community more
+then 500,000 times.
+
+\section{Progress to Date}
+
+Using previous round of funding \cite{gn-nsf-2011} we developed prototypes of
+name resolution \cite{resolver:gn} and name finding services \cite{gnrd}. These
+tools are in active use already. Currently we are building ``production-ready''
+tools based on these prototypes.
+
+To be able to extract semantic elements from scientific names we developed very
+fast and sophisticated parser of scientific names -- \textit{GNParser}
+\cite{gnparser}. To have dramatic speed improvement for fuzzy matching
+algorithms we are developing \textit{GNMatcher} \cite{gnmatcher}. We are in the
+process of making \textit{GNResolver} \cite{gnresolver} to facilitate names
+reconciliation, resolution and disambiguation.
+
+We work with several prominent biodiversity projects, such as iDigBio,
+Catalogue of Life, Encyclopedia of Life, VertNet. We collect their use cases to
+make sure that our tools satisfy their needs. With Catalogue of Life we started
+very close cooperation in developing functionality which is complementary to
+their mission, trying to enhance usability of our and their projects. We
+participated in several workshops and hackathons during last year.  To assist
+creators of national checklists of species we developed gn\_crossmap
+\cite{gn-crossmap} tool, to make it easier for them to compare their checklists
+with other resources, especially Catalogue of Life. In cooperation with iDigBio
+we developed iDigBio gem \cite{gn-idigbio} for Ruby language.
+
+
+There are 3 papers in works. One about challenges of name resolution
+\cite{Patterson:inpress-a} is in
+print. Papers about \textit{GNParser} \cite{Mozzherin:inpress-a} and Dryad
+scientific names matching are in preparation.
+
+We created a new Global Names web-site and blog \cite{globalnames-web} to
+present news, Global Names' applications, reference documentation.
+
+Under Google Summer of Code program we worked on two projects with students.
+One student developed computer system monitoring tool \cite{sysopia}, another
+student made research on estimation of quality of names-strings using machine
+learning approaches.
+
+It is impossible to have popular globally accessed services without fast
+hardware. Another bioinformatics project, Encyclopedia of Life \cite{eol}
+generously donated to GlobalNames twelve of their former production servers. We
+moved these servers to Advanced Computation Building at University of Illinois,
+and set them up with Linux operating system and configured their network.  We
+started moving existing ``prototype'' services from Marine Biological
+Laboratory to these more numerous and powerful servers.
+
+\section{Scope of Work}
+
+Common trend for our new projects is migration from Ruby to Scala programming
+language. We chose Scala language for its speed, and scalability. It is also
+important that it is based on Java Virtual Machine. As a result libraries we
+write can be used in a large variety of languages and the resulting code is
+more portable. For example \textit{GNParser} is shown to work in Scala, Java,
+Ruby, Python, and R.
+
+\subsection{GNParser}
+
+\textit{GNParser} \cite{gnparser} is already quite mature project with
+well-developed documentation. It is approaching a production-ready v1.0.0
+release.  The major task for this release is to analyse and stabilize the
+parser's output format, so we can keep the format backward compatible for all
+future versions.  \textit{GNParser} is based on a ``prototype''
+\textit{biodiversity} \cite{biodiversity} parser.
+
+We are going to continue developing \textit{GNParser}, add new parsing rules,
+improvements. We are plan to submit a paper about the parser in March 2016
+\cite{Mozzherin:inpress-a}. We plan to release v1.0.0 also in March 2016.
+
+\subsection{GNMatcher}
+
+\textit{GNMatcher} \cite{gnmatcher} is a tool to fuzzy-match scientific names.
+It is based on a combination of Damerau-Levenstein edit distance algorithm and
+Prefix Tree.  Prefix Tree ``caching'' allows to accelerate algorithm hundreds
+or even thousand times. The project is in its early stages of development and
+will continue to mature throughout the duration of the funding. We will add
+elements of Taxamatch \cite{Rees2014}. We expect production-ready version by
+July 2016.
+
+\subsection{GNHarvester}
+
+\textit{GNHarvester} serves several functions:
+
+\begin{description}
+
+  \item[Data Converter:] Converts data from multiple formats (csv files,
+    database dumps, spreadsheets, html pages, etc.) to Darwin Core Archive
+    files.
+
+  \item[Harvester:] Transforms Darwin Core Archive files into
+    \textit{GNResolver}-compatible database records
+
+  \item[Scheduler:] Creates schedule for automatic launch of the Harvester
+    to periodically update database.
+\end{description}
+
+Prototypes of Data Converter are \textit{dwca-hunter} \cite{dwca-hunter} and
+\textit{dwc-archive} library \cite{dwc-archive}.  We plan to have a
+production-ready version of \textit{GNHarverster} in August 2016. We will use
+a plugin-based design for Data Converter to simplify writing modules for
+various datasets.
+
+\subsection{GNResolver}
+
+\textit{GNResolver} \cite{gnresolver} is a tool for a fast and accurate
+disambiguation of names, finding correct spelling of name-strings, finding
+homonyms, and usages of the names around the world.
+
+GNResolver is one of the two major tools we are going to deliver. It is
+going to consist of several micro-services, combining their functionality into
+one project.
+
+Most of the algorithms in \textit{GNResolver} are taken from our original
+``prototype'' code \cite{resolver:gn, gnrd}. Some algorithms we redesign from scratch to
+increase their performance and scalability. By August 2016 we are going
+to implement the following workflow for \textit{GNResolver}:
+
+\begin{enumerate}[label=\textbf{Step \arabic*}]
+
+  \item User submits name-strings to \textit{GNResolver} interactively
+    (web-interface) or programmatically (REST API)
+
+  \item \textit{GNParser} parses incoming name-strings
+
+  \item \label{exact} Searcher finds exact matches to name-strings and
+    their canonical forms in the \textit{GNResolver}'s database
+
+  \item \label{fuzzy} Name-strings which did not match at \ref{exact} are
+    sent to \textit{GNMatcher} to find canonical forms similar to submitted
+    ones
+
+  \item For name-strings of infraspecific rank which did not match at
+    \ref{exact} or \ref{fuzzy} we perform partial exact and fuzzy matches at
+    the species level
+
+  \item For name-strings of species which did not match step \ref{exact} or
+    \ref{fuzzy} we perform partial exact match at the genus level.
+
+  \item We analyze parsed information from user-supplied name strings, and
+    matches found in GN database and calculate confidence score
+    based on the following criteria:
+    \begin{itemize}
+      \item Type of the match (exact, fuzzy, partial, etc.)
+      \item Authorship and/or year match
+      \item Match of infraspecific ranks if they are given
+      \item Homonym database match (to find ambiguous names)
+      \item Matches according to apparent placement in classification tree.
+    \end{itemize}
+\end{enumerate}
+
+\textit{GNResolver} will consist of the following modules:
+
+\begin{description}
+
+  \item[GNParser:] breaks names to their semantic elements
+
+  \item[Database Searcher:] performs search in GN database by exact matching of
+    a name-string or its canonical form
+
+  \item[GNMatcher:] fuzzy matching
+
+  \item[Database Faceted Search:] search data by genus, author, year etc
+
+  \item[Global Names Usage Bank Search:] interface to GNUB \cite{Pyle2016} to
+    retrieve nomenclatural information
+
+  \item[Confidence Score Calculator:] calculation of relevance for each found
+    match \cite{Patterson:inpress-a}
+
+\end{description}
+
+\subsection{GNFinder}
+
+The purpose of \textit{GNFinder} is to discover names in texts, PDF files, and
+images. Main components of \textit{GNFinder} are:
+
+\begin{description}
+  \item[OCR Component:] Converts scanned PDF files and images to texts
+  \item[Name Finding Component:] Finds scientific name-strings in texts
+  \item[GNResolver Component:] Checks if found name-strings are known,
+    correctly spelled scientific names.
+\end{description}
+
+In the prototype tool (\textit{Global Names Recognition and Discovery} or
+\textit{GNRD}) \cite{gnrd} we used two name-finding engines -- TaxonFinder and
+NetiNeti \cite{Akella2012}. The former one mostly used heuristic algorithms,
+the later one mostly used natural language processing algorithms. Both systems
+had their own strengths and weaknesses. In the new version of \textit{GNFinder}
+we plan to use \textit{GNParser} \cite{gnparser} to extract potential
+name-strings.  Then we will apply heuristic and natural language processing to
+increase the quality of candidates. Filtering out ``fake'' names by GNResolver
+is the final step. Performance-wise we hope to increase throughput about 50
+fold.
+
+\textit{GNFinder} is going to be our main focus after August 2016. We plan to
+finish it by the end of the funding.
+
+\subsection{System Administration}
+
+We will move existing name-finding \cite{resolver:gn} and name-resolving
+\cite{gnrd} services from Marine Biological Laboratory to University of
+Illinois. We have about 5 times more computing power now, which should
+significantly increase throughput of Ruby-based tools. We plan to finish
+migration in March 2016.
+
+Docker containers is our tool of choice to setup existing and future services.
+We are going to use Docker, Chef and Kubernetes scripts and configuration
+files to dramatically simplify system administration of our tools and make
+them readily accessible for researches who are willing to run the tools
+locally at their institutions. We already converted significant portion of our
+code to be compatible with Docker and all newly developed software is
+distributed at DockerHub and can be installed with one command.
+
+CoreOS cluster. Computers that we have are 3-5 years old and prone to hardware
+failures. To provide high availability systems we will create local cloud
+cluster using CoreOS and Kubernetes. We plan to make the cluster expandable to
+external computational cloud providers to scale services for temporary spikes
+in demand. We already see such spikes for our current services. We plan to have
+working Kubernetes cluster by April 2016.
+
+Hardware upgrades. We are planning to purchase 3-4 additional servers to be
+able to phase out broken older computers. We will speck out new computers, buy
+them and include them into our cloud cluster system. This step is important to
+keep the services in good health after this round of funding. Estimated
+completion is April 2016
+
+\section{Summary}
+
+The following items will be the output of planned work:
+
+\begin{description}
+
+  \item[GNResolver] to validate and disambiguate scientific names, index usage
+    of the names world-wide
+
+  \item[GNFinder] to find scientific names in texts, scans, PDFs and images
+
+  \item[GN Libraries] Name and Name database handling tools which can be used
+    independently of GNResolver and GNFinder, such as GNParser, GNMatcher,
+    GNHarvester
+
+  \item[Docker containers] Scripts to easy install all or some GN projects
+    locally by researchers
+
+\end{description}
+
+\bibliographystyle{bmc-mathphys} % Style BST file
+\bibliography{gnparser}      % Bibliography file (usually '*.bib' )
+
+\end{document}
